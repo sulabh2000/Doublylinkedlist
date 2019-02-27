@@ -67,5 +67,22 @@ public class DoublyLinkedList {
             newNode.next.pre=newNode;
             size++;
         }
+        public void insert(int data)
+        {
+            if(head==null)
+            {
+                insertHead(data);
+            }
+            else
+            {
+                Node temp = this.head;
+                while(temp!=null)
+                {
+                    temp=temp.next;
+                }
+                insertAfter(data,temp);
+            }
+
+        }
 
 }
