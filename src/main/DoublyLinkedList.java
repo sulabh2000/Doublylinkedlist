@@ -29,6 +29,10 @@ public class DoublyLinkedList {
         public static void main(String[] args) {
             DoublyLinkedList linkedlist = new DoublyLinkedList();
             System.out.println(linkedlist);
+            for (int i = 0; i < 5; i++) {
+                linkedlist.insert(i+1);
+            }
+            System.out.println(linkedlist);
         }
         @Override
         public String toString()
@@ -46,7 +50,9 @@ public class DoublyLinkedList {
         }
         public void  insert(int data)
       {
-
+        Node newNode = new Node(data, null, this.head);
+        this.head=newNode;
+        size++;
       }
 
 
