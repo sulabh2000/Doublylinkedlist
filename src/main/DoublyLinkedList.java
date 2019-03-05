@@ -1,100 +1,91 @@
 package main;
+class Node{
+    int data;
+    Node next;
+    Node previous;
+}
 
 public class DoublyLinkedList {
+    Node head;
+    int size;
 
-    private static class Node {
-        private int data;
-        private Node pre;
-        private Node next;
-
-        public Node(int data, Node pre, Node next) {
-            this.data = data;
-            this.pre = pre;
-            this.next = next;
+    public static void main(String[] args) {
+        DoublyLinkedList obj=new DoublyLinkedList();
+        for (int i = 0; i < 5; i++) {
+            Node node=new Node();
+            node.data=(i+1)*100;
+            obj.insert(node);
         }
-
-        public Node(int data) {
-            this.data = data;
-            this.pre = null;
-            this.next = null;
-        }
+        obj.display();
+        obj.delete();
     }
-
-
-        private int size = 0;
-        private Node head = null;
-        private Node tail = null;
-
-
-        public static void main(String[] args) {
-            DoublyLinkedList linkedlist = new DoublyLinkedList();
-            System.out.println(linkedlist);
-            for (int i = 0; i < 5; i++) {
-                linkedlist.insertHead(i+1);
-            }
-            System.out.println(linkedlist);
+    void insert(Node node){
+        System.out.println("inserting node"+node.data+"at last");
+        if(head==null){
+            head=node;
         }
-        @Override
-        public String toString()
+        else
         {
-            StringBuilder response = new StringBuilder();
-            response.append("[");
-            Node temp=this.head;
-            while(temp!=null)
-            {
-                response.append(temp.data);
-                if(temp.next!=null)
-                {
-                    response.append(" <==> ");
-                }
+            Node temp=head;
+            while (temp.next!=null){
                 temp=temp.next;
             }
-            response.append("]");
-            return response.toString();
+            node.previous=temp;
+            temp.next=node;
         }
-        public void insertHead(int data)
-      {
-       /* Node newNode = new Node(data, null, this.head);
-        this.head=newNode;*/
-       this.head=new Node(data,null,this.head);
-        size++;
-      }
-
-        private void insertAfter(int data, Node node)
-        {
-            Node newNode = new Node(data,node,node.next);
-            node.next=newNode;
-            newNode.next.pre=newNode;
-            size++;
-        }
-        public void insert(int data)
-        {
-            if(head==null)
-            {
-                insertHead(data);
-            }
-            else
-            {
-                Node temp = this.head;
-                while(temp!=null)
-                {
-                    temp=temp.next;
-                }
-                insertAfter(data,temp);
-            }
-
-        }
-        void display()
-    {
-        System.out.println("Doubly linkedlist");
-        Node temp = head;
-        System.out.println("null<--->");
-        while(temp!=null)
-        {
-            System.out.println(temp.data + "<--->");
+    }
+    void display(){
+        System.out.println("Doubly LinkedList");
+        Node temp=head;
+        System.out.println("null<-->");
+        while (temp!=null){
+            System.out.println(temp.data+"<--->");
             temp=temp.next;
         }
         System.out.println("null");
     }
+    void delete(){
+        if(head==null){
+            System.out.println("empty list");
+        }
+        else
+        {
+            Node temp=head;
+            while (temp!=null){
+                temp=temp.next;
+            }
+            System.out.println("deleting node"+temp.data+"from last");
+            temp=temp.previous;
+            temp.next=null;
+        }
+    }
+    boolean search(Node node){
+        boolean response=false;
+        Node temp=head;
+        while (temp!=null){
+            if(temp.data==node.data){
+                response=true;
+                break;
+            }
+            temp=temp.next;
+        }
+        return response;
+    }
+    void insertAtBeginning(Node node)
+    {
+        System.out.println("inserting node " + node.data + " at beginning");
+        if(head== null)
+        {
+            head = node;
+        }
+        else
+        {
+            node.next = head;
+            head.previous = node;
+            head = node;
+        }
+        size++;
+    }
+
 
 }
